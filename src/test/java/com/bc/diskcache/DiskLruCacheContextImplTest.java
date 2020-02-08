@@ -16,16 +16,19 @@
 
 package com.bc.diskcache;
 
-import java.io.File;
 import java.io.IOException;
+import java.io.Serializable;
+import java.nio.file.Paths;
 import java.util.Objects;
+import static org.junit.Assert.fail;
+import org.junit.Test;
 
 /**
  * @author Chinomso Bassey Ikwuagwu on Dec 10, 2018 8:42:29 PM
  */
 public class DiskLruCacheContextImplTest {
 
-    public static class CacheObject{
+    public static class CacheObject implements Serializable{
         private final Integer id;
         private final String name;
         public CacheObject(Integer id, String name) {
@@ -52,19 +55,15 @@ public class DiskLruCacheContextImplTest {
 //        new DiskCacheContextImplTest().test();
 //    }
 
-//    @Test
+    @Test
     public void test() {
 
-        final DiskLruCacheContext.FileProvider fileProvider = new DiskLruCacheContext.FileProvider(){
-            @Override
-            public File createFile(String s) {
-                return new File(s);
-            }
-        };
+        final DiskLruCacheContext.FileProvider fileProvider = 
+                (fname) -> Paths.get(TestDirs.CACHE, fname).toFile();
 
         final DiskLruCacheContext dcc = new DiskLruCacheContextImpl(fileProvider, 100_000_000);
 
-        final String cacheName = "abcde";
+        final String cacheName = "CACHE_FOR_com.bc.diskcacheDiskLruCacheContextImplTest";
 
         final String key = "one";
 
@@ -84,6 +83,7 @@ public class DiskLruCacheContextImplTest {
 
         }catch(IOException | ClassNotFoundException e) {
             e.printStackTrace();
+            fail(e.toString());
         }finally{
             dcc.closeAndRemoveAll();
         }
