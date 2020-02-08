@@ -4,11 +4,11 @@
     <parent>
         <groupId>com.looseboxes</groupId>
         <artifactId>parent</artifactId>
-        <version>1.1-SNAPSHOT</version>
+        <version>1.0-SNAPSHOT</version>
     </parent>
 
     <artifactId>bcdiskcache</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.1-SNAPSHOT</version>
     <packaging>jar</packaging>
     <name>${project.artifactId}</name>
     <description>A disk LRU cache api based on https://github.com/JakeWharton/DiskLruCache</description>
