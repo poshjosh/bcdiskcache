@@ -1,3 +1,6 @@
+target/
+nb-configuration.xml
+
 # Compiled class file
 *.class
 
